@@ -68,22 +68,45 @@ var EventDispatcher = {
 };
 
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+// var AjaxWrapper = {
+//   // request, then and catch
+//   request: function(internetObject) {
+//     var theRequest = new XMLHttpRequest();
+//     theRequest.addEventListener('load', function(){
+//       var response = this.responseText;
+//       return response;
+//     });
+//     theRequest.open(internetObject.type, internetObject.url +
+//       internetObject.data);
+//     theRequest.send();
+//   },
+//   then: function(successHandler) {
+//     successHandler();// include argument somehow?
+//   },
+//   catch: function(failureHandler) {
+//     failureHandler();
+//   }
+// };
+
 var AjaxWrapper = {
-  // request, then and catch
   request: function(internetObject) {
-    var theRequest = new XMLHttpRequest();
-    theRequest.addEventListener('load', function(){
-      console.log(this.responseText);
+    var aPromise = new Promise(function(resolve, reject){
+      var theRequest = new XMLHttpRequest();
+
+      theRequest.addEventListener('load', function(){
+        if(theRequest.status >= 200 && theRequest.status < 400) { //make this condition more robust
+          resolve(theRequest.response);
+        } else {
+          reject(theRequest.response);
+        }
+      });
+
+      theRequest.open(internetObject.type, internetObject.url +
+        internetObject.data);
+      theRequest.send();
     });
-    theRequest.open(internetObject.type, internetObject.url +
-      internetObject.data);
-    theRequest.send();
+
+    return aPromise;
   },
-  // then: function(successHandler) {
-  //   successHandler();// include argument somehow?
-  // },
-  // catch: function(failureHandler) {
-  //   failureHandler();
-  // }
 };
 
