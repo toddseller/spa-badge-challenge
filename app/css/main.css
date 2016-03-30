@@ -147,6 +147,15 @@ th {
   background: transparent;
 }
 
+.down img {
+  width: 25px;
+  height: auto;
+}
+
+.up img {
+  width: 25px;
+  height: auto;
+}
 
 /* NAV */
 .nav {

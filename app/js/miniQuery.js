@@ -1,9 +1,9 @@
 /*!
  * minQuery
  */
-
-var SweetSelector = {
-  select: function(element) {
+var SweetSelector = {};
+(function(exports) {
+  exports.select = function(element) {
     var value = element.slice(0, 1);
     switch (value) {
       case '#':
@@ -13,8 +13,8 @@ var SweetSelector = {
       default:
         return document.getElementsByTagName(element);
     }
-  },
-};
+  }
+})(SweetSelector);
 
 var DOM = {
   hide: function(element) {
@@ -110,3 +110,33 @@ var AjaxWrapper = {
   },
 };
 
+var miniQuery = function(selector) {
+  var selected = SweetSelector.select(selector);
+
+  selected.hide = function() {
+    DOM.hide(selector)
+  }
+
+  selected.show = function() {
+    DOM.show(selector)
+  }
+
+  selected.addClass = function(newClass) {
+    DOM.addClass(selector, newClass)
+  }
+
+  selected.removeClass = function(deleteClass) {
+    DOM.removeClass(selector, deleteClass)
+  }
+  debugger
+  selected.on = function(event, action) {
+    EventDispatcher.on(selected, event, action)
+  }
+
+  selected.trigger = function(event) {
+    EventDispatcher.trigger(selected, event)
+  }
+  return selected;
+}
+
+var $ = miniQuery
