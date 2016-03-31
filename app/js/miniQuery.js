@@ -113,6 +113,19 @@ var miniQuery = function(selector) {
   selected.trigger = function(event) {
     EventDispatcher.trigger(selector, event)
   }
+
+  selected.ready = function(block){
+    switch(document.readyState){
+      case "loading":
+        document.addEventListener("DOMContentLoaded", function(event){
+          return block();
+        });
+        break;
+      case "complete":
+        return block();
+        break;
+    }
+  }
   return selected; //is this necessary?
 }
 
