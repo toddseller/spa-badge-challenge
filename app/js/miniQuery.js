@@ -1,9 +1,8 @@
 /*!
  * minQuery
  */
-var SweetSelector = {};
-(function(exports) {
-  exports.select = function(element) {
+var SweetSelector = {
+  select: function(element) {
     var value = element.slice(0, 1);
     switch (value) {
       case '#':
@@ -14,7 +13,7 @@ var SweetSelector = {};
         return document.getElementsByTagName(element);
     }
   }
-})(SweetSelector);
+};
 
 var DOM = {
   hide: function(element) {
@@ -49,7 +48,6 @@ var DOM = {
           classes.splice(j, 1);
         }
       };
-
       elements[i].className = classes.join(' ');
     };
   },
@@ -66,27 +64,6 @@ var EventDispatcher = {
     target.dispatchEvent(happening);
   }
 };
-
-//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-// var AjaxWrapper = {
-//   // request, then and catch
-//   request: function(internetObject) {
-//     var theRequest = new XMLHttpRequest();
-//     theRequest.addEventListener('load', function(){
-//       var response = this.responseText;
-//       return response;
-//     });
-//     theRequest.open(internetObject.type, internetObject.url +
-//       internetObject.data);
-//     theRequest.send();
-//   },
-//   then: function(successHandler) {
-//     successHandler();// include argument somehow?
-//   },
-//   catch: function(failureHandler) {
-//     failureHandler();
-//   }
-// };
 
 var AjaxWrapper = {
   request: function(internetObject) {
@@ -128,15 +105,15 @@ var miniQuery = function(selector) {
   selected.removeClass = function(deleteClass) {
     DOM.removeClass(selector, deleteClass)
   }
-  debugger
+
   selected.on = function(event, action) {
-    EventDispatcher.on(selected, event, action)
+    EventDispatcher.on(selector, event, action)
   }
 
   selected.trigger = function(event) {
-    EventDispatcher.trigger(selected, event)
+    EventDispatcher.trigger(selector, event)
   }
-  return selected;
+  return selected; //is this necessary?
 }
 
 var $ = miniQuery
