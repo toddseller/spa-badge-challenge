@@ -1,6 +1,3 @@
-/*!
- * minQuery
- */
 var SweetSelector = {
   select: function(element) {
     var value = element.slice(0, 1);
@@ -71,15 +68,14 @@ var AjaxWrapper = {
       var theRequest = new XMLHttpRequest();
 
       theRequest.addEventListener('load', function(){
-        if(theRequest.status >= 200 && theRequest.status < 400) { //make this condition more robust
+        if(theRequest.status >= 200 && theRequest.status < 400) {
           resolve(theRequest.response);
         } else {
           reject(theRequest.response);
         }
       });
 
-      theRequest.open(internetObject.type, internetObject.url +
-        internetObject.data);
+      theRequest.open(internetObject.type, internetObject.url);
       theRequest.send();
     });
 
