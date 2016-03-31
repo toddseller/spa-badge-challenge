@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" type="text/css" href="css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
   <script src="js/miniQuery.js"></script>
   <script src="js/app.js"></script>
   <title>SPABadge</title>
@@ -11,18 +14,33 @@
       <h1> SPA Badge </h1>
     </div>
     <h1> SF Teachers </h1>
-      <ul>
-        <li><a href="#">Derek</a></li>
-        <li><a href="#">Hunter</li>
-        <li><a href="#">Jaclyn</a></li>
-        <li><a href="#">Julian</a></li>
-        <li><a href="#">Mihai</a></li>
-        <li><a href="#">Sarah</a></li>
-        <li><a href="#">Seba</a></li>
-        <li><a href="#">Shambhavi</a></li>
-        <li><a href="#">Walker</a></li>
-        <li><a href="sample-page.html">Sample Page (to see what the badges view should look like)</a></li>
-      </ul>
+    <ul id="teacher-name">
+      <script id="header" type="text/x-handlebars-template">
+      {{#each teacher}}
+      <li><a class="teacher-link" href="{{id}}" id="{{id}}">{{name}}</a></li>
+      {{/each}}
+      </script>
+    </ul>
+    <script id="teacher-badges" type="text/x-handlebars-template">
+      <div id="{{teacher.id}}" class="badge">
+        <div class="body">{{title}}</div>
+        <form action="#" id='up-vote'>
+          <input type='hidden' name="badge_id" value={{id}}>
+          <input type='hidden' name="teacher_id" value={{teacher_id}}>
+          <input type='hidden' name='count' value=1>
+          <button class="up" type="submit" name="submit">
+            <img src="img/up_vote.svg" alt="upvote_image" />
+          </button>
+        </form>
+        <form action="#" id='down-vote'>
+          <input type='hidden' name="badge_id" value={{id}}>
+          <input type='hidden' name="teacher_id" value={{teacher_id}}>
+          <input type='hidden' name='count' value=1>
+          <button class="down" type="submit" name="submit">
+            <img src="img/down_vote.svg" alt="downvote_image" />
+          </button>
+        </form>
+    </script>
   </div>
 </body>
 </html>
